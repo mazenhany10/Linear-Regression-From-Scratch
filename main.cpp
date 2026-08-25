@@ -1,50 +1,28 @@
-#include <vector>
 #include <iostream>
+#include <tuple>
 using namespace std;
 
-vector<int> use_vector() {
+void assignment_operator() {
+    
     //----WRITE YOUR CODE BELOW THIS LINE----
-    vector<int> vector1 ;
-    vector<int> vector2 ;
+    // Declare num1 as an integer and initialize it to 13.
+    int num1 ={13};
     
-    vector1.push_back(10);
-    vector1.push_back(20);
-    vector2.push_back(100);
-    vector2.push_back(200);
-    cout<< "vector 1"<<endl;
-    cout<<vector1.at(0)<<endl;
-    cout<<vector1.at(1)<<endl;
-    cout<< "vector 1 size"<<endl;
-    cout << vector1.size()<<endl;
-    cout<< "vector 2"<<endl;
-    cout<<vector2.at(0)<<endl;
-    cout<<vector2.at(1)<<endl;
-    cout<< "vector 2 size "<<endl;
-    cout << vector2.size()<<endl;
-    cout<< "vector 2d"<<endl;
-    vector<vector<int>> vector_2d;
-    vector_2d.push_back(vector1);
-    vector_2d.push_back(vector2);
+    // Declare num2 as an integer and initialize it to 0.
+    int num2 ={0};
     
-    cout<<vector_2d.at(0).at(0)<<endl;
-    cout<<vector_2d.at(0).at(1)<<endl;
-    cout<<vector_2d.at(1).at(0)<<endl;
-    cout<<vector_2d.at(1).at(1)<<endl;
-    vector1.at(0) = 1000;
-    cout<< "vector_2d before "<<endl;
-    cout<<vector_2d.at(0).at(0)<<endl;
-    cout<<vector_2d.at(0).at(1)<<endl;
-    cout<<vector_2d.at(1).at(0)<<endl;
-    cout<<vector_2d.at(1).at(1)<<endl;
-    cout<< "vector 1 after changing "<<endl;
-
-    cout<<vector1.at(0)<<endl;
-    cout<<vector1.at(1)<<endl;
+    // Assign the value 5 to num1
+    num1 =5;
+    
+    // Assign the value of num1 to num2
+    num2 = num1;
+    
     //----WRITE YOUR CODE ABOVE THIS LINE----
-    //----NO NOT MODIFY THE CODE BELOW THIS LINE----
-    return vector1;
+    //----DO NOT MODIFY THE CODE BELOW THIS LINE----
+   
+   cout << num1 << " " << num2;
 }
-int main() {
-    vector<int> result = use_vector();
-    return 0;
+int main ()
+{
+    assignment_operator ();
 }
