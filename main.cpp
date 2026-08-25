@@ -1,31 +1,50 @@
+#include <vector>
 #include <iostream>
 using namespace std;
+
+vector<int> use_vector() {
+    //----WRITE YOUR CODE BELOW THIS LINE----
+    vector<int> vector1 ;
+    vector<int> vector2 ;
+    
+    vector1.push_back(10);
+    vector1.push_back(20);
+    vector2.push_back(100);
+    vector2.push_back(200);
+    cout<< "vector 1"<<endl;
+    cout<<vector1.at(0)<<endl;
+    cout<<vector1.at(1)<<endl;
+    cout<< "vector 1 size"<<endl;
+    cout << vector1.size()<<endl;
+    cout<< "vector 2"<<endl;
+    cout<<vector2.at(0)<<endl;
+    cout<<vector2.at(1)<<endl;
+    cout<< "vector 2 size "<<endl;
+    cout << vector2.size()<<endl;
+    cout<< "vector 2d"<<endl;
+    vector<vector<int>> vector_2d;
+    vector_2d.push_back(vector1);
+    vector_2d.push_back(vector2);
+    
+    cout<<vector_2d.at(0).at(0)<<endl;
+    cout<<vector_2d.at(0).at(1)<<endl;
+    cout<<vector_2d.at(1).at(0)<<endl;
+    cout<<vector_2d.at(1).at(1)<<endl;
+    vector1.at(0) = 1000;
+    cout<< "vector_2d before "<<endl;
+    cout<<vector_2d.at(0).at(0)<<endl;
+    cout<<vector_2d.at(0).at(1)<<endl;
+    cout<<vector_2d.at(1).at(0)<<endl;
+    cout<<vector_2d.at(1).at(1)<<endl;
+    cout<< "vector 1 after changing "<<endl;
+
+    cout<<vector1.at(0)<<endl;
+    cout<<vector1.at(1)<<endl;
+    //----WRITE YOUR CODE ABOVE THIS LINE----
+    //----NO NOT MODIFY THE CODE BELOW THIS LINE----
+    return vector1;
+}
 int main() {
-    cout << "Frank's Carpet Cleaning Service"<< endl;
-    cout<< " how many small rooms";
-    int small_rooms{0};
-    cin >> small_rooms;
-    cout<< " how many large rooms";
-    int large_rooms{0};
-    cin >> large_rooms;
-    const double price_of_small_room{15};
-    const double price_of_large_room{40};
-    const double tax_rate{0.06};
-    const int estimate_days{30};
-    // Calculate costs
-    const double cost_small = price_of_small_room * small_rooms;
-    const double cost_large = price_of_large_room * large_rooms;
-    const double subtotal = cost_small + cost_large;
-    const double tax = subtotal * tax_rate;
-    const double total = subtotal + tax;
-
-    cout << "Price per small room: $" << price_of_small_room << endl;
-    cout << "Price per large room: $" << price_of_large_room << endl;
-    cout << "Cost: $" << subtotal << endl;
-    cout << "Tax: $" << tax << endl;
-    cout << "====================================" << endl;
-    cout << "Total estimate: $" << total << endl;
-    cout << "This estimate is valid for " << estimate_days << " days" << endl;
-
+    vector<int> result = use_vector();
     return 0;
 }
