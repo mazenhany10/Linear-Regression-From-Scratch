@@ -1,9 +1,4 @@
-//
-//  main.cpp
-//  multply
-//
-//  Created by Mazenn  on 28/08/2026.
-//
+
 
 #include <iostream>
 #include <vector>
