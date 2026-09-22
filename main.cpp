@@ -1,40 +1,42 @@
 #include <iostream>
 using namespace std;
-class Shallow
+class Deep
 {
 private:
-    int *data ;
-    
+    int *data;
 public:
     void set_data_value(int d){*data=d;}
     int get_data_value(){return *data;}
-    // constructor
-    Shallow (int d);
-    //copy instructor
-    Shallow(const Shallow&source);
-    // destructor
-    ~Shallow();
+    Deep (int d);
+    Deep(const Deep&source );
+    ~Deep();
+    
 };
-Shallow::Shallow(int d){
+Deep::Deep(int d ){
     data = new int;
-    *data =d;
+    *data =d ;
+};
+
+
+Deep::Deep(const Deep &source )
+:Deep{*source.data}{
+    cout <<"Deep constructor "<< endl ;
+    
 }
-Shallow::Shallow(const Shallow & source)
-: data ( source.data ){
-    cout << "copy constructor "<< endl ;
-}
-Shallow::~Shallow(){
-    delete data ;
-    cout <<"Denstructor is freeing data"<< endl;
-}
-void display_shallow (Shallow s){
+void display_deep(Deep s){
     cout << s.get_data_value()<<endl;
 }
+Deep::~Deep()
+{
+    delete data;
+    cout << "delete"<< endl;
+}
+
 
 int main() {
-    Shallow obj1{100};
-    display_shallow(obj1);
-    Shallow obj2 {obj1};
+    Deep obj1{100};
+    display_deep(obj1);
+    Deep obj2 {obj1};
     obj2.set_data_value(1000);
     
 }
