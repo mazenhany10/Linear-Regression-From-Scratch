@@ -1,22 +1,20 @@
-#include "Account.hpp"
-using namespace std;
-void Account::set_name(string n){
-    name = n;
-}
-string Account::get_name(){
-    return name;
+#include "Player.h"
+
+int Player::num_players {0};
+
+Player::Player(std::string name_val, int health_val, int xp_val)
+    : name{name_val}, health{health_val}, xp{xp_val} {
+        ++num_players;
 }
 
-bool Account::deposit(double amount){
-    balance +=amount;
-    return true;
+Player::Player(const Player &source)
+       : Player {source.name, source.health, source.xp}  {
 }
-bool Account::withdraw(double amount){
-    if (balance-amount>=0){
-        balance -=amount ;
-        return true;
-        
-    } else {
-        return false;
-    }
+
+Player::~Player() {
+    --num_players;
+}
+
+int Player::get_num_players() {
+    return num_players;
 }
