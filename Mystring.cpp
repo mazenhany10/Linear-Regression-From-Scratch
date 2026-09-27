@@ -29,12 +29,35 @@ Mystring::Mystring(const Mystring &source)
     str = new char[strlen(source.str) + 1];
     strcpy(str, source.str);
 }
-
+Mystring::Mystring(Mystring &&source)
+: str(source.str){
+    source.str= nullptr;
+    cout << "Move const have been used "<< endl;
+}
 // Destructor
 Mystring::~Mystring() {
     delete [] str;
 }
-
+//copy assignment
+Mystring &Mystring::operator=(const Mystring &rhs){
+    cout << "copy assignment"<<endl;
+    if (this ==&rhs)
+        return *this;
+    delete [] this->str;
+    str = new char[strlen(rhs.str)+1];
+    strcpy(this->str,rhs.str);
+    return *this;
+ 
+}
+Mystring &Mystring::operator=( Mystring &&rhs){
+    cout << "move assignment"<<endl;
+    if (this == &rhs)
+        return *this;
+    delete [] str;
+    str =rhs.str;
+    rhs.str= nullptr;
+    return *this;
+}
 // Display
 void Mystring::display() const {
     cout << str << " : " << strlen(str) << endl;

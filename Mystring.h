@@ -5,10 +5,13 @@ private:
     char *str;
 
 public:
-    Mystring();
-    Mystring(const char *s);
-    Mystring(const Mystring &source);
-    ~Mystring();
+    Mystring();    //no cons
+    Mystring(const char *s);      // overloaded
+    Mystring(const Mystring &source);     //copy
+    Mystring( Mystring &&source);        //move
+    ~Mystring();            // dest
+    Mystring &operator=(const Mystring &rhs);
+    Mystring &operator=(Mystring &&rhs); //move assignment
 
     void display() const;
     int get_lenth() const;         // Changed from void to int
