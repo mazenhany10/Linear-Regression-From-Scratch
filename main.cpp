@@ -6,23 +6,14 @@
 using namespace std;
 
 int main() {
-    Mystring larry{"larry"};
-    larry.display();
-    cout<<"............................."<<endl;
-    larry= -larry;
-    larry.display();
-    cout << boolalpha <<endl;
-    Mystring moe {"Moe"};
-    Mystring stooge = larry ;
-    cout << (larry== moe)<<endl;
-    cout << (larry== stooge)<<endl;
-    cout<<"............................."<<endl;
-    Mystring two_stooges =moe+" "+"larry";
-    two_stooges.display();
-    cout<<"............................."<<endl;
-    Mystring three_stooges =moe+" "+"larry"+" "+"MUSTAFA";
-    three_stooges.display();
-    three_stooges=-three_stooges;
-    three_stooges.display();
+    Mystring larry{"Ahmed"};
+    Mystring moe{"loves"};
+    Mystring ahmed;
+    cout<< "Enter shosho ";
+    cin >>ahmed;
+    cout<< "the three stooges "<<endl << larry <<" "<<moe<<" "<<ahmed<<endl;
+    cout <<"\nEnter the three names sperateted by spaces ";
+    cin >>larry>>moe>>ahmed;
+    cout<< "the three stooges "<< larry <<" "<<moe<<" "<<ahmed<<endl;
 }
 

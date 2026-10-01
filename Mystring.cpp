@@ -2,6 +2,18 @@
 #include <cstring>
 #include <cctype>
 #include "Mystring.h"
+#include <iomanip>
+
+istream &operator>>(istream &in, Mystring &rhs)
+{
+    char buff[1000];
+
+    in >> setw(sizeof(buff)) >> buff;   // كلمة واحدة، وآمن من الـ overflow
+
+    rhs = Mystring{buff};
+    return in;
+}
+using namespace std;
 
 // No-args constructor
 Mystring::Mystring()
@@ -9,6 +21,7 @@ Mystring::Mystring()
     str = new char[1];
     *str = '\0';
 }
+
 
 // Overloaded constructor
 Mystring::Mystring(const char *s)
@@ -65,31 +78,7 @@ Mystring &Mystring::operator=( Mystring &&rhs) {
     return *this;
 }
 
-// Equality
-//bool Mystring::operator==(const Mystring &rhs) const {
-//    return (std::strcmp(str, rhs.str) == 0);
-//}
 
-// Make lowercase
-//Mystring Mystring::operator-() const {
-//    char *buff= new char[std::strlen(str) + 1];
-//    std::strcpy(buff, str);
-//    for (size_t i=0; i<std::strlen(buff); i++)
-//        buff[i] = std::tolower(buff[i]);
-//    Mystring temp {buff};
-//    delete [] buff;
-//    return temp;
-//}
-
-// Concatentate
-//Mystring Mystring::operator+(const Mystring &rhs) const {
-//    char *buff = new char[std::strlen(str) + std::strlen(rhs.str) + 1];
-//    std::strcpy(buff, str);
-//    std::strcat(buff, rhs.str);
-//    Mystring temp {buff};
-//    delete [] buff;
-//    return temp;
-//}
 
 // Display method
 void Mystring::display() const {
@@ -102,27 +91,9 @@ void Mystring::display() const {
  // string getter
  const char *Mystring::get_str() const { return str; }
 
-// equality
-bool operator==(const Mystring &lhs,const Mystring &rhs){
-    return (strcmp(lhs.str,rhs.str)==0);
+//overloaded insertion operteor
+ostream &operator<<(ostream &os,const Mystring &rhs){
+    os<<rhs.str;
+    return os;
 }
-// make lower case
-Mystring operator-(const Mystring &obj){
-    char *buff=new char [strlen(obj.str)+1];
-    strcpy(buff,obj.str);
-    for(size_t i=0;i < strlen(buff);i++)
-        buff[i]=tolower(buff[i]);
-    Mystring temp{buff};
-    delete []buff;
-    return temp;
-}
-// concatiantion
-Mystring operator+(const Mystring &lhs,const Mystring &rhs){
-    char *buff = new char[strlen(lhs.str)+strlen(rhs.str)+1];
-    strcpy(buff,lhs.str);
-    strcat(buff,rhs.str);
-    Mystring temp{buff};
-    delete [] buff;
-    return  temp;
-    
-}
+
