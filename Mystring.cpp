@@ -1,8 +1,7 @@
-#include <cstring>
 #include <iostream>
+#include <cstring>
+#include <cctype>
 #include "Mystring.h"
-
-using namespace std;
 
 // No-args constructor
 Mystring::Mystring()
@@ -13,62 +12,117 @@ Mystring::Mystring()
 
 // Overloaded constructor
 Mystring::Mystring(const char *s)
-    : str{nullptr} {
-    if (s == nullptr) {
-        str = new char[1];
-        *str = '\0';
-    } else {
-        str = new char[strlen(s) + 1];
-        strcpy(str, s);
-    }
+    : str {nullptr} {
+        if (s==nullptr) {
+            str = new char[1];
+            *str = '\0';
+        } else {
+            str = new char[std::strlen(s)+1];
+            std::strcpy(str, s);
+        }
 }
 
 // Copy constructor
 Mystring::Mystring(const Mystring &source)
     : str{nullptr} {
-    str = new char[strlen(source.str) + 1];
-    strcpy(str, source.str);
+        str = new char[std::strlen(source.str)+ 1];
+        std::strcpy(str, source.str);
+        std::cout << "Copy constructor used" << std::endl;
 }
-Mystring::Mystring(Mystring &&source)
-: str(source.str){
-    source.str= nullptr;
-    cout << "Move const have been used "<< endl;
+
+// Move constructor
+Mystring::Mystring( Mystring &&source)
+    :str(source.str) {
+        source.str = nullptr;
+        std::cout << "Move constructor used" << std::endl;
 }
+
 // Destructor
 Mystring::~Mystring() {
     delete [] str;
 }
-//copy assignment
-Mystring &Mystring::operator=(const Mystring &rhs){
-    cout << "copy assignment"<<endl;
-    if (this ==&rhs)
-        return *this;
-    delete [] this->str;
-    str = new char[strlen(rhs.str)+1];
-    strcpy(this->str,rhs.str);
-    return *this;
- 
-}
-Mystring &Mystring::operator=( Mystring &&rhs){
-    cout << "move assignment"<<endl;
+
+// Copy assignment operator
+Mystring &Mystring::operator=(const Mystring &rhs) {
+    std::cout << "Using copy assignment" << std::endl;
+
     if (this == &rhs)
         return *this;
     delete [] str;
-    str =rhs.str;
-    rhs.str= nullptr;
+    str = new char[std::strlen(rhs.str) + 1];
+    std::strcpy(str, rhs.str);
     return *this;
 }
-// Display
+
+// Move assignment operator
+Mystring &Mystring::operator=( Mystring &&rhs) {
+    std::cout << "Using move assignment" << std::endl;
+    if (this == &rhs)
+        return *this;
+    delete [] str;
+    str = rhs.str;
+    rhs.str = nullptr;
+    return *this;
+}
+
+// Equality
+//bool Mystring::operator==(const Mystring &rhs) const {
+//    return (std::strcmp(str, rhs.str) == 0);
+//}
+
+// Make lowercase
+//Mystring Mystring::operator-() const {
+//    char *buff= new char[std::strlen(str) + 1];
+//    std::strcpy(buff, str);
+//    for (size_t i=0; i<std::strlen(buff); i++)
+//        buff[i] = std::tolower(buff[i]);
+//    Mystring temp {buff};
+//    delete [] buff;
+//    return temp;
+//}
+
+// Concatentate
+//Mystring Mystring::operator+(const Mystring &rhs) const {
+//    char *buff = new char[std::strlen(str) + std::strlen(rhs.str) + 1];
+//    std::strcpy(buff, str);
+//    std::strcat(buff, rhs.str);
+//    Mystring temp {buff};
+//    delete [] buff;
+//    return temp;
+//}
+
+// Display method
 void Mystring::display() const {
-    cout << str << " : " << strlen(str) << endl;
+    std::cout << str << " : " << get_length() << std::endl;
 }
 
-// Length getter
-int Mystring::get_lenth() const {
-    return strlen(str);
-}
+// length getter
+ int Mystring::get_length() const { return std::strlen(str); }
+ 
+ // string getter
+ const char *Mystring::get_str() const { return str; }
 
-// Getter for C-string
-const char* Mystring::get_str() const {
-    return str;
+// equality
+bool operator==(const Mystring &lhs,const Mystring &rhs){
+    return (strcmp(lhs.str,rhs.str)==0);
+}
+// make lower case
+Mystring operator-(const Mystring &obj){
+    char *buff=new char [strlen(obj.str)+1];
+    strcpy(buff,obj.str);
+    for(size_t i=0;i < strlen(buff);i++)
+        buff[i]=tolower(buff[i]);
+    Mystring temp{buff};
+    delete []buff;
+    return temp;
+}
+// concatiantion
+Mystring operator+(const Mystring &lhs,const Mystring &rhs){
+    char *buff = new char[strlen(lhs.str)+strlen(rhs.str)+1];
+    strcpy(buff,lhs.str);
+    strcat(buff,rhs.str);
+    Mystring temp{buff};
+    delete [] buff;
+    return  temp;
+    
 }
