@@ -1,20 +1,21 @@
-#include "Player.h"
+#include <iostream>
+#include "Account.h"
+using namespace std;
 
-int Player::num_players {0};
-
-Player::Player(std::string name_val, int health_val, int xp_val)
-    : name{name_val}, health{health_val}, xp{xp_val} {
-        ++num_players;
+Account::Account()
+:balance{0.0},name{"mazen's account"}{
+    
 }
 
-Player::Player(const Player &source)
-       : Player {source.name, source.health, source.xp}  {
+Account::~Account(){
+    
 }
 
-Player::~Player() {
-    --num_players;
-}
+void Account::deposit(double amount){
+    cout << "Account deposit called with "<< amount << endl;
 
-int Player::get_num_players() {
-    return num_players;
+}
+void Account::withdraw(double amount){
+    cout << "Account withdraw called with "<< amount << endl;
+
 }
