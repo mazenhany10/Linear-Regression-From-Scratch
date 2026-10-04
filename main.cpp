@@ -1,38 +1,32 @@
 #include <iostream>
-#include "Account.h"
-#include "Savings_account.h"
-
 using namespace std;
-
+class Base{
+public:
+    int a{0};
+    void display(){cout << a<<","<<b<<","<<c<<endl;}
+protected:
+    int b{0};
+private:
+    int c{0};
+};
+class Drived:public Base{
+public:
+    void accses_member(){
+        a=100;
+        b=200;
+//      c=300;
+    }
+    
+};
 int main() {
-    
-    
-    
-    
-    // code class
-    cout << "==========class account========"<<endl;
-    Account maz{};
-    maz.deposit(2000);
-    maz.withdraw(900);
-    cout<< endl;
-    Account *p_acc{nullptr};
-    p_acc=new Account{};
-    p_acc->deposit(9000);
-    p_acc->withdraw(8000);
-    delete p_acc;
-    
-    
-    
-    // savings accc
-    cout << "==========saving account========"<<endl;
-    Savings_Account mazsav{};
-    mazsav.deposit(3000);
-    mazsav.withdraw(1000);
-    
-    Savings_Account *psav_acc{nullptr};
-    psav_acc=new Savings_Account{};
-    psav_acc->deposit(9000);
-    psav_acc->withdraw(8000);
-    delete psav_acc;
-
+    cout << "===base member accessfrom base obj======"<<endl;
+    Base base;
+    base.a=100;
+//    base.b=200;
+//    base.c=300;
+    cout << "===base member access from drivetive obj======"<<endl;
+    Drived d;
+    d.a=990;
+//    d.b=800;
+//    d.c=440
 }
