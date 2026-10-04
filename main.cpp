@@ -2,31 +2,37 @@
 using namespace std;
 class Base{
 public:
-    int a{0};
-    void display(){cout << a<<","<<b<<","<<c<<endl;}
-protected:
-    int b{0};
-private:
-    int c{0};
-};
-class Drived:public Base{
-public:
-    void accses_member(){
-        a=100;
-        b=200;
-//      c=300;
+    Base():value{0}{
+        cout << "no bas cons are called "<<endl;
     }
-    
+    Base(int x):value{x}{
+        cout << " bas int overloaded cons are called "<<endl;
+    }
+    ~Base(){
+        cout << " bas distructor are called "<<endl;
+    }
+private:
+    int value;
 };
+class Derived:public Base{
+private:
+    int doubled_value;
+public:
+    Derived():doubled_value{0}{
+        cout << " Derived no cons are called "<<endl;
+    }
+    Derived(int x):doubled_value{x*2}{
+        cout << " Derived int overloaded cons are called "<<endl;
+    }
+    ~Derived(){
+        cout << " Derived distructor are called "<<endl;
+    }
+};
+
 int main() {
-    cout << "===base member accessfrom base obj======"<<endl;
-    Base base;
-    base.a=100;
-//    base.b=200;
-//    base.c=300;
-    cout << "===base member access from drivetive obj======"<<endl;
-    Drived d;
-    d.a=990;
-//    d.b=800;
-//    d.c=440
+//    Base b;
+//    Base b{200};
+//    Derived d;
+    Derived d{1000};
+    return 0;
 }
