@@ -1,41 +1,47 @@
-// Section 15
-// Redefining and Using Base Class Methods
+// Section 16
+// The problem
 #include <iostream>
-#include "Saving_Account.h"
+#include <memory>
 
-using namespace std;
+class Base {
+public:
+    void say_hello() const {
+        std::cout << "Hello - I'm a Base class object" << std::endl;
+    }
+};
 
+class Derived: public Base {
+public:
+    void say_hello()  const {
+        std::cout << "Hello - I'm a Derived class object" << std::endl;
+    }
+};
+
+void greetings(const Base &obj) {
+    std::cout << "Greetings: " ;
+    obj.say_hello();
+}
 
 int main() {
-    cout << "\n===== Account class ===================" << endl;
-    Account a1 {1000.0};
-    cout << a1 << endl;         // Account balance: 1000
+    Base b;
+    b.say_hello();
     
-    a1.deposit(500.0);
-    cout << a1 << endl;         // Account balance: 1500
+    Derived d;
+    d.say_hello();
     
-    a1.withdraw(1000);            // Account balance: 500
-    cout << a1 << endl;
+    greetings(b);
+    greetings(d);
     
-    a1.withdraw(5000.0);         // Insufficient funds
-    cout << a1 << endl;         // Account balance: 500
-
- cout << "\n===== Savings Account class ===========" << endl;
-    Saving_Account s1 {1000, 5.0};
-    cout << s1 << endl;         // Savings Account balance: 1000, Interest rate: 5
+    Base *ptr = new Derived();
+    ptr->say_hello();
     
-    s1.deposit(1000);
-    cout << s1 << endl;          // Savings Account balance: 2050, Interest rate: 5
+    std::unique_ptr<Base> ptr1 = std::make_unique<Derived>();
+    ptr1->say_hello();
     
-    s1.withdraw(2000);
-    cout << s1 << endl;          // Savings Account balance: 50, Interest rate: 5
     
-    s1.withdraw(1000);            // Insufficient funds
-    cout << s1 << endl;         // Savings Account balance: 50, Interest rate: 5
     
+   delete ptr;
     
     return 0;
 }
-
-
 
