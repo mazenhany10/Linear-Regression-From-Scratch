@@ -1,47 +1,79 @@
-// Section 16
-// The problem
+
 #include <iostream>
-#include <memory>
+#include <vector>
 
-class Base {
+class Account {
 public:
-    void say_hello() const {
-        std::cout << "Hello - I'm a Base class object" << std::endl;
+    virtual void withdraw(double amount) {
+        std::cout << "In Account::withdraw" << std::endl;
     }
+    virtual ~Account() {  }
 };
 
-class Derived: public Base {
+class Checking: public Account  {
 public:
-    void say_hello()  const {
-        std::cout << "Hello - I'm a Derived class object" << std::endl;
+    virtual void withdraw(double amount) {
+        std::cout << "In Checking::withdraw" << std::endl;
     }
+    
+    virtual ~Checking() {  }
 };
 
-void greetings(const Base &obj) {
-    std::cout << "Greetings: " ;
-    obj.say_hello();
-}
+class Savings: public Account  {
+public:
+    virtual void withdraw(double amount) {
+        std::cout << "In Savings::withdraw" << std::endl;
+    }
+    virtual ~Savings() {  }
+};
+
+class Trust: public Account  {
+public:
+    virtual void withdraw(double amount) {
+        std::cout << "In Trust::withdraw" << std::endl;
+    }
+    virtual ~Trust() {  }
+};
 
 int main() {
-    Base b;
-    b.say_hello();
+    std::cout << "\n === Pointers ==== " << std::endl;
+    Account *p1 = new Account();
+    Account *p2 = new Savings();
+    Account *p3 = new Checking();
+    Account *p4 = new Trust();
     
-    Derived d;
-    d.say_hello();
+    p1->withdraw(1000);
+    p2->withdraw(1000);
+    p3->withdraw(1000);
+    p4->withdraw(1000);
     
-    greetings(b);
-    greetings(d);
-    
-    Base *ptr = new Derived();
-    ptr->say_hello();
-    
-    std::unique_ptr<Base> ptr1 = std::make_unique<Derived>();
-    ptr1->say_hello();
-    
-    
-    
-   delete ptr;
-    
+    std::cout << "\n === Array ==== " << std::endl;
+    Account *array [] = {p1,p2,p3,p4};
+    for (auto i=0; i<4; ++i)
+        array[i]->withdraw(1000);
+        
+    std::cout << "\n === Array ==== " << std::endl;
+    array[0] = p4;
+    for (auto i=0; i<4; ++i)
+        array[i]->withdraw(1000);
+
+    std::cout << "\n === Vector ==== " << std::endl;
+    std::vector<Account *> accounts {p1,p2,p3,p4};
+    for (auto acc_ptr: accounts)
+        acc_ptr->withdraw(1000);
+        
+    std::cout << "\n === Vector ==== " << std::endl;
+    accounts.push_back(p4);
+    accounts.push_back(p4);
+    for (auto acc_ptr: accounts)
+        acc_ptr->withdraw(1000);
+
+    std::cout << "\n === Clean up ==== " << std::endl;
+    delete p1;
+    delete p2;
+    delete p3;
+    delete p4;
+        
     return 0;
 }
 
