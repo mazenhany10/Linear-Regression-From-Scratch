@@ -1,64 +1,105 @@
+// Section 17
+// Challenge 1
+/***********************************************************************************************************
+Create a program that has the following:
 
+1. a function named make that creates and returns a unique_ptr to a vector of shared_ptrs to Test objects.
+
+2. a function named fill that expects a vector of shared pointers to Test objects and a int
+   representing the number of Test objects to create dynamically and add to the vector.
+
+   This function will prompt the user to enter an integer, create a shared_ptr to a Test object
+   initialized to the entered integer and add that shared pointer to the vector.
+
+3. a function named display that expects a vector of shared_ptrs to Test object and displays the
+   data in each Test object
+
+4. The main driver should look as follows:
+
+    int main() {
+        std::unique_ptr<std::vector<std::shared_ptr<Test>>> vec_ptr;
+        vec_ptr = make();
+        std::cout << "How many data points do you want to enter: ";
+        int num;
+        std::cin >> num;
+        fill(*vec_ptr, num);
+        display(*vec_ptr);
+        return 0;
+    }
+
+Below is a sample run for the user entering 3 at the console:
+
+How many data points do you want to enter: 3
+Enter data point [1] : 10
+        Test constructor (10)
+Enter data point [2] : 20
+        Test constructor (20)
+Enter data point [3] : 30
+        Test constructor (30)
+Displaying vector data
+=======================
+10
+20
+30
+=======================
+        Test destructor (10)
+        Test destructor (20)
+        Test destructor (30)
+
+- I am providing the function prototypes in the code.
+However, feel free to modify these as you wish
+***********************************************************************************************************/
 #include <iostream>
+#include <memory>
+#include <vector>
+using namespace std;
 
+class Test
+{
+private:
+    int data;
 
-class Account {
 public:
-    virtual void withdraw(double amount) {
-        std::cout << "In Account::withdraw" << std::endl;
-    }
-    virtual ~Account() {  }
+    Test() : data{0} { cout << "\tTest constructor (" << data << ")" << std::endl; }
+    Test(int data) : data{data} { cout << "\tTest constructor (" << data << ")" << std::endl; }
+    int get_data() const { return data; }
+    ~Test() { cout << "\tTest destructor (" << data << ")" << endl; }
 };
 
-class Checking: public Account  {
-public:
-    virtual void withdraw(double amount) {
-        std::cout << "In Checking::withdraw" << std::endl;
-    }
-    virtual ~Checking() {  }
-};
-
-class Savings: public Account  {
-public:
-    virtual void withdraw(double amount) {
-        std::cout << "In Savings::withdraw" << std::endl;
-    }
-    virtual ~Savings() {  }
-};
-
-class Trust: public Account  {
-public:
-    virtual void withdraw(double amount) {
-        std::cout << "In Trust::withdraw" << std::endl;
-    }
-    virtual ~Trust() {  }
-};
-
-void do_withdraw(Account &account, double amount) {
-    account.withdraw(amount);
+// Function prototypes
+unique_ptr<vector<shared_ptr<Test>>> make()
+{
+    auto ptr = make_unique<vector<shared_ptr<Test>>>();
+    return ptr;
 }
 
-int main() {
+void fill(vector<shared_ptr<Test>> &vec, int num)
+{
+    for (int i = 0; i < num; i++)
+    {
+        int data;
+        cout << "Enter the number: " << endl;
+        cin >> data;
+        auto ptr = make_shared<Test>(data);
+        vec.push_back(ptr);
+    }
+}
+void display(const vector<shared_ptr<Test>> &vec)
+{
+    for (int i = 0; i < vec.size(); i++)
+    {
+        cout << vec[i]->get_data() << endl;
+    }
+}
 
-    Account a;
-    Account &ref = a;
-    ref.withdraw(1000);            // In Account::withdraw
-
-    Trust t;
-    Account &ref1 = t;
-    ref1.withdraw(1000);        // In Trust::withdraw
-
-   Account a1;
-   Savings a2;
-   Checking a3;
-   Trust a4;
-   
-   do_withdraw(a1, 1000);       // In Account::withdraw
-   do_withdraw(a2, 2000);       // In Savings::withdraw
-   do_withdraw(a3, 3000);       // In Checking::withdraw
-   do_withdraw(a4,  4000);      // In Trust::withdraw
-
-
+int main()
+{
+    unique_ptr<vector<shared_ptr<Test>>> vec_ptr;
+    vec_ptr = make();
+    cout << "How many data points do you want to enter: ";
+    int num;
+    cin >> num;
+    fill(*vec_ptr, num);
+    display(*vec_ptr);
     return 0;
 }
-
