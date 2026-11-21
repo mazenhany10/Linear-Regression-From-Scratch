@@ -1,28 +1,32 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 int main() {
-    int large_room;
-    int small_room;
-    cout<<"Hello, welcome to lolipop's Carpet Cleaning Service"<<endl;
-    cout<<endl;
-    cout<<"How many small rooms would you like cleaned? ";
-    cin >>small_room;
-    cout<<"How many large rooms would you like cleaned? ";
-    cin >>large_room;
-    cout<<"Estimate for carpet cleaning service"<<endl;
-    cout<<"Number of small rooms:"<<small_room<<endl;
-    cout<<"Number of large rooms:"<<large_room<<endl;
-    cout<<"Price per small room: $25"<<endl;
-    cout<<"Price per large room: $35"<<endl;
-    double cost;
-    cost = large_room*35+small_room*25;
-    double total_cost;
-    total_cost=cost*1.06;
-    double tax;
-    tax =total_cost-cost;
-    cout<<"cost:"<<cost<<"$"<<endl;
-    cout<<"tax:"<<tax<<"$"<<endl;
-    cout<<"============================"<<endl;
-    cout<<"total cost:"<<total_cost<<endl;
-    cout<<"This estimate is valid for 30 days"<<endl;
+    vector<int>vector1;
+    vector<int>vector2;
+    vector1.push_back(10);
+    vector1.push_back(20);
+    vector2.push_back(100);
+    vector2.push_back(200);
+    cout<<vector1.at(0)<<endl;
+    cout<<vector1.at(1)<<endl;
+    cout<<"vector 1 size:"<<vector1.size()<<endl;
+    cout<<vector2.at(0)<<endl;
+    cout<<vector2.at(1)<<endl;
+    cout<<"vector 2 size:"<<vector2.size()<<endl;
+    vector<vector<int>>twoVector;
+    twoVector.push_back(vector1);
+    twoVector.push_back(vector2);
+    cout<<twoVector.at(0).at(0)<<endl;
+    cout<<twoVector.at(0).at(1)<<endl;
+    cout<<twoVector.at(1).at(0)<<endl;
+    cout<<twoVector.at(1).at(1)<<endl;
+    vector1.at(0)=1000;
+    cout<<twoVector.at(0).at(0)<<endl;
+    cout<<twoVector.at(0).at(1)<<endl;
+    cout<<twoVector.at(1).at(0)<<endl;
+    cout<<twoVector.at(1).at(1)<<endl;
+    cout<<"===================="<<endl;
+    cout<<vector1.at(0)<<endl;
+    cout<<vector1.at(1)<<endl;
 }
